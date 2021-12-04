@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Move Shadow</title>
+    <style>
+        html{
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
+        h1{
+            text-shadow: 10px 10px 0 black;
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       <h1 contenteditable>🔥JAVASCRIPT!!!</h1>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const text = container.querySelector('h1');
+        const walk = 300;
+
+        function shadow(e){
+        //   const width = container.offsetWidth;
+        //   const height = container.offsetHeight;
+          const { offsetWidth:width, offsetHeight: height} = container;
+        //   let x = e.offsetX;
+        //   let y = e.offsetY;
+          let { offsetX: x, offsetY: y} = e;
+
+          if(this !== e.target){
+              x = x + e.target.offsetLeft;
+              y = y + e.target.offsetTop;
+          }
+          
+          const xwalk = Math.round((x/ width * walk) - (walk/2));
+          const ywalk = Math.round((y/ height * walk) - (walk/2));
+
+         text.style.textShadow = `
+         ${xwalk}px ${ywalk}px 0 #ff002ab3,
+      ${xwalk * -1}px ${ywalk}px 0 #0090ffcc,
+      ${ywalk*-1}px ${xwalk * -1}px 0 #00ff00c7,
+      ${ywalk * -1}px ${xwalk}px 0 #eaff00cf
+         `
+        }
+        container.addEventListener('mousemove',shadow)
+    </script>
+</body>
+</html>
